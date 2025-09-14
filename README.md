@@ -1,68 +1,28 @@
-# RTL to GDSII Flow 🚀
+# Place and Route Flow 🚀
 
-This repository demonstrates the **RTL to GDSII flow** in ASIC design, starting from Verilog RTL and progressing through synthesis, floorplanning, placement, CTS, routing, and signoff. The final output is a **GDSII layout** ready for fabrication, using open-source or industry-standard tools.
-
+This repository documents my end-to-end ASIC Physical Design Flow project implemented using Synopsys EDA tools (Design Compiler, ICC2, PrimeTime).
 ---
 
-## 📌 Overview
-The **RTL to GDSII flow** is the standard VLSI backend design process. It systematically converts a high-level RTL design into a manufacturable physical layout while meeting power, performance, and area (PPA) requirements.
-
----
-
-## ⚙️ Flow Stages
-1. **RTL Design** – HDL coding and functional verification  
-2. **Synthesis** – RTL → gate-level netlist optimization  
-3. **DFT** – Insert scan chains & test structures  
-4. **Floorplanning** – Chip size, I/O, macro, and power planning  
-5. **Placement** – Place standard cells and optimize congestion  
-6. **CTS** – Build clock tree with controlled skew & latency  
-7. **Routing** – Global & detailed routing, DRC clean  
-8. **Signoff** – STA, power analysis, DRC, LVS checks  
-9. **GDSII Generation** – Final tape-out database  
-
+## 🚀 Project Overview  
+- **Objective**: Complete **Place & Route implementation** for a synthesized design.  
+- **Design**: `ChipTop` module with 61K standard cells and 40 macros.  
+- **Target Frequency**: 434 MHz (2.3 ns clock period).  
+- **PnR Flow Steps**:  
+  1. Floorplanning (**ICC2**) – die size, macro & IO port placement, Voltage area creation,power planning  
+  2. Placement (**ICC2**) – standard cell placement & congestion optimization  
+  3. Clock Tree Synthesis (CTS) – clock skew & latency balancing  
+  4. Routing – global & detailed routing, DRC fixes 
+  5. Post-Route Optimization – timing fixes, buffering, crosstalk 
+  6. Signoff (**PrimeTime**) – STA, power, DRC/LVS checks  
+  7. GDSII Generation – final tape-out layout
 ---
 
 ## 🛠️ Tools
-- **Synthesis**: Yosys / Design Compiler  
-- **PnR**: OpenROAD, Innovus, ICC2  
-- **Timing Analysis**: OpenSTA, PrimeTime  
-- **Verification**: Icarus Verilog, ModelSim  
-- **DRC/LVS**: Magic, Calibre  
-
+- **Synthesis**: Design Compiler  
+- **PnR**: Synopsys ICC2  
+- **Timing Analysis**: PrimeTime  
+- **SPEF Extraction**: STARRC 
 ---
+## 📄 License
 
-## 📂 Repository Structure
-# RTL to GDSII Flow 🚀
-
-This repository demonstrates the **RTL to GDSII flow** in ASIC design, starting from Verilog RTL and progressing through synthesis, floorplanning, placement, CTS, routing, and signoff. The final output is a **GDSII layout** ready for fabrication, using open-source or industry-standard tools.
-
----
-
-## 📌 Overview
-The **RTL to GDSII flow** is the standard VLSI backend design process. It systematically converts a high-level RTL design into a manufacturable physical layout while meeting power, performance, and area (PPA) requirements.
-
----
-
-## ⚙️ Flow Stages
-1. **RTL Design** – HDL coding and functional verification  
-2. **Synthesis** – RTL → gate-level netlist optimization  
-3. **DFT** – Insert scan chains & test structures  
-4. **Floorplanning** – Chip size, I/O, macro, and power planning  
-5. **Placement** – Place standard cells and optimize congestion  
-6. **CTS** – Build clock tree with controlled skew & latency  
-7. **Routing** – Global & detailed routing, DRC clean  
-8. **Signoff** – STA, power analysis, DRC, LVS checks  
-9. **GDSII Generation** – Final tape-out database  
-
----
-
-## 🛠️ Tools
-- **Synthesis**: Yosys / Design Compiler  
-- **PnR**: OpenROAD, Innovus, ICC2  
-- **Timing Analysis**: OpenSTA, PrimeTime  
-- **Verification**: Icarus Verilog, ModelSim  
-- **DRC/LVS**: Magic, Calibre  
-
----
-
-## 📂 Repository Structure
+This project is licensed under the MIT License.
