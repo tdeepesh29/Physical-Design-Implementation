@@ -32,12 +32,12 @@ This project is licensed under the MIT License.
 
 ---
 ![Project](https://img.shields.io/badge/Project-PD_Flow-blue?style=for-the-badge)
-![Tools](https://img.shields.io/badge/Tools-DC_|_ICC2_|_PrimeTime-limegreen?style=for-the-badge)
+![Tools](https://img.shields.io/badge/Tools-DC_|_ICC2_|_STARRC_|_PrimeTime-limegreen?style=for-the-badge)
 ![Macros](https://img.shields.io/badge/Macros-40-lightgrey?style=for-the-badge)
 ![Std_Cells](https://img.shields.io/badge/Std_Cells-61K-blue?style=for-the-badge)
 ![Frequency](https://img.shields.io/badge/Frequency-434MHz-red?style=for-the-badge)
-![Utilization](https://img.shields.io/badge/Utilization-70%25-orange?style=for-the-badge)
-![Hold_WNS](https://img.shields.io/badge/Hold_WNS--0.04ns-brightgreen?style=for-the-badge)
+![Utilization](https://img.shields.io/badge/Utilization-75%25-orange?style=for-the-badge)
+![Hold_WNS](https://img.shields.io/badge/Hold_WNS--0.05ns-brightgreen?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-gold?style=for-the-badge)
 
 
