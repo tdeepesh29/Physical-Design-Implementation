@@ -16,18 +16,30 @@ This repository documents my end-to-end ASIC Physical Design Flow project implem
   6. Signoff (**PrimeTime**) – STA, power, DRC/LVS checks  
   7. GDSII Generation – final tape-out layout
 ---
-** Key Results
+**Key Results**
 
-Utilization: 73%
+- **Utilization**: 75%
 
-Hold WNS: –0.04 ns
+- **Hold WNS**: –0.05 ns
 
-Clock Period: 2.4 ns (416.7 MHz)
+- **Clock Period**: 2.3 ns
+  
+- **Frequency**: 432 MHZ
 
-Final Output: ✅ DRC/LVS clean GDSII layout
+- **Final Output**: DRC/LVS clean GDSII layout
+
+**Highlights**
+
+- Achieved stable timing closure across all corners
+
+- Ensured zero design rule violations post-routing
+
+- Enhanced placement efficiency with reduced congestion hotspots
+
+- Verified power integrity and clock performance during signoff
 
 ---
-## Tools
+## **Tools**
 | Stage                | Tool                | Purpose                                |
 | -------------------- | ------------------- | -------------------------------------- |
 | Synthesis            | **Design Compiler** | RTL to gate-level netlist              |
