@@ -1,0 +1,44 @@
+set sum 0
+foreach_in_collection c [get_flat_cells -filter "power_domain == PD_RISC_CORE"] {
+    set area [get_attribute [get_flat_cells $c] area]
+    set sum [expr $sum + $area]
+}
+puts "TOTAL CELL AREA OF CELLS BELONGING TO PD_RISC_CORE : $sum"
+
+#cell area
+#utilisation
+set uti 0.75
+
+#uti = cell area / total voltage area
+#uti = 0.75
+#cell area = $sum
+#total voltage area = ?
+
+#total voltage area
+set total_area [expr ($sum/$uti)]
+
+puts "Voltage area required for $uti : $total_area"
+
+#AREA = H * W
+
+set h 172
+set height [expr {ceil ($h/1.672)} * 1.672]
+puts $height
+
+#set height [expr (int ($h/1.672) +1 )*1.672 ]
+
+set w [expr ($total_area/$h)]
+set width [expr {ceil ($w/0.152)} * 0.152]
+puts $width
+
+#llx lly urx ury
+set llx [expr 5.016 + 5]
+set lly [expr 5.016 + 5]
+set urx [expr ($width + 5)]
+set ury [expr ($height + 5)]
+
+set coord [list [list $llx $lly] [list $urx $ury]]
+
+remove_voltage_areas -all
+
+create_voltage_area -region $coord -guard_band {{5.016 5.016}} -power_domains PD_RISC_CORE
