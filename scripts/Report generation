@@ -1,0 +1,41 @@
+#get the attribute [current_block] name
+set path [get_attribute [current_block] name]
+
+#check
+if {[file exist /home/deepesht/PD_ADV_MAY25/ORCA_TOP/PD/OUTPUTS/reports/$path]} {
+    [sh mkdir /home/deepesht/PD_ADV_MAY25/ORCA_TOP/PD/OUTPUTS/reports/$path]
+    puts "file_created"
+} else {
+    puts "exist"
+}
+
+#}
+#if {[file dosent exit]} {
+# #create a directory} else {
+# #print "already exist"
+#}
+
+#GENERATE REPORT
+
+report_congestion -rerun_global_router > /home/deepesht/PD_ADV_MAY25/ORCA_TOP/PD/OUTPUTS/reports/$path/Cong.rpt
+report_constraints -max_transition -all_violators -significant_digits 3 -scenarios * -nosplit > /home/deepesht/PD_ADV_MAY25/ORCA_TOP/PD/OUTPUTS/reports/$path/mtv_apo.rpt
+report_constraints -max_capacitance -all_violators -significant_digits 3 -scenarios * -nosplit > /home/deepesht/PD_ADV_MAY25/ORCA_TOP/PD/OUTPUTS/reports/$path/mcv_apo.rpt
+report_global_timing > /home/deepesht/PD_ADV_MAY25/ORCA_TOP/PD/OUTPUTS/reports/PD_MAY25/$path/tv.rpt
+report_qor > /home/deepesht/PD_ADV_MAY25/ORCA_TOP/PD/OUTPUTS/reports/PD_MAY25/$path/buff.rpt
+
+#set fh_write
+
+# BUFF
+sizeof_collection [get_flat_cells -filter "ref_name = *BUFF* "]
+
+# INV
+sizeof_collection [get_flat_cells -filter "ref_name = *INV* "]
+
+# CELLS ADDED IN CLOCK PATH DURING CTS
+sizeof_collection [get_flat_cells *clock_opt_clock*]
+
+# CELLS ADDED IN DATA PATH DURING CTS
+sizeof_collection [get_flat_cells *clock_opt_opt*]
+
+# TOTAL NUMBER OF CELLS ADDED DURING CTS
+sizeof_collection [get_flat_cells *clock_opt*]
