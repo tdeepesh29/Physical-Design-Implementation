@@ -1,0 +1,83 @@
+############### Cells to be built ###############
+# Specify alternate cells for existing cells
+
+# excluding all the library cells
+set_lib_cell_purpose -exclude cts [get_lib_cells]
+
+# including only the clock cell references - which will be added in clock path - derive_clock_all_reference
+source ./SCRIPTS/cts_include_refs.tcl
+
+# Specify buffers and inverters to be used
+set CTS_CELLS [get_lib_cells **/*NBUFF* LVT */INVK* LVT */*DFF*"]
+set_lib_cell_purpose -include cts $CTS_CELLS
+
+############### Specify Routing Rules ###############
+#Specify NDR and routing rules(Non Default Routing rule)
+set_ignored_layers -max_routing_layer M6
+set_ignored_layers -min_routing_layer M2
+# app option is used for m1 layer which tell the tool to use M1 to connect the pins
+set_app_options -name route.common.net_min_layer_mode -value allow_pin_connection
+
+remove_routing_rules -all
+create_routing_rule iccrm_clock_double_spacing -default_reference_rule -multiplier_spacing 2 -taper_distance 0.4 -driver_taper_distance 0.4
+set_clock_routing_rules -rules iccrm_clock_double_spacing -min_routing_layer M4 -max_routing_layer M5
+
+############### Specify constraints ###############
+# Set uncertainty
+# After CTS tun = jitter + margin
+# Before CTS tun = jitter + skew + margin
+foreach_in_collection a [get_scenarios] {
+    current_scenario $a
+    set_clock_uncertainty 0.1 -setup [all_clocks]
+    set_clock_uncertainty 0.05 -hold [all_clocks]
+}
+# Set target skew .
+
+set_clock_tree_options -target_skew 0.05 -corners [get_corners ss_125c]
+set_clock_tree_options -target_skew 0.05 -corners [get_corners ss_m40c]
+set_clock_tree_options -target_skew 0.02 -corners [get_corners ff_m40c]
+set_clock_tree_options -target_skew 0.02 -corners [get_corners ff_125c]
+
+# Set clock max transitions
+set_max_transition 0.05 -clock_path [get_clocks] -corners [all_corners]
+
+# Enable CRPR (Clock reconvergence pessimism removal)
+set_app_options -name time.remove_clock_reconvergence_pessimism -value true
+
+############### Specify clock tree exceptions ###############
+set_clock_balance_points \
+-consider_for_balancing true \
+-balance_points [get_pins "I_SDRAM_TOP/I_SDRAM_IF/sd_mux */*"]
+
+set_dont_touch [get_cells "I_SDRAM_TOP/I_SDRAM_IF/sd_mux *"]
+set_dont_touch [get_cells "I_CLOCKING/sys_clk_in_reg*"]
+
+############### Specify cell prefix inserted during CTS ###############
+set_app_option -name cts.common.user_instance_name_prefix -value clock_opt_clock_
+############### Specify cell prefix inserted in data path ###############
+set_app_option -name opt.common.user_instance_name_prefix -value clock_opt_opt_
+
+############### Build Clock tree ###############
+remove_routes -global_route
+
+# Run clock opt
+clock_opt -to build_clock
+save_block -as TIME_build_clock_done
+clock_opt -to route_clock
+save_block -as TIME_CTS_clock_done
+
+#set_app_options -list {opt.dft.clock_aware_scan true}
+#set_app_options -list {clock_opt.hold.effort high}
+#set_app_options -list {opt.dft.clock_aware_scan true}
+clock_opt.place.congestion_effort high\
+clock_opt.place.effort high}
+
+set_app_option -name clock_opt.hold.effort -value high
+set_app_option -name ccd.hold_control_effort -value high
+set_app_options -name opt.dft.clock_aware_scan_reorder -value true ;# ther is no combo cells in scan chain path
+
+set_lib_cell_purpose -include hold [get_lib_cells "*/DELLN* HVT */NBUFFX2_HVT */NBUFFX4_HVT */NBUFFX8_HVT"]
+set_app_options -name clock_opt.flow.enable_ccd -value true
+
+clock_opt -from final_opto
+save_block -as clock_opt_done
