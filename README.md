@@ -24,7 +24,7 @@ This repository documents my end-to-end ASIC Physical Design Flow project implem
 
 - **Clock Period**: 2.3 ns
   
-- **Frequency**: 432 MHZ
+- **Frequency**: 434 MHZ
 
 - **Final Output**: DRC/LVS clean GDSII layout
 
