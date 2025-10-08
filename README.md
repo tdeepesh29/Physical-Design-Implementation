@@ -48,11 +48,6 @@ This repository documents my end-to-end ASIC Physical Design Flow project implem
 | Parasitic Extraction | **StarRC**          | SPEF generation                        |
 
 ---
-## License
-
-This project is licensed under the MIT License.
-
----
 ![Project](https://img.shields.io/badge/Project-PD_Flow-blue?style=for-the-badge)
 ![Tools](https://img.shields.io/badge/Tools-DC_|_ICC2_|_STARRC_|_PrimeTime-limegreen?style=for-the-badge)
 ![Macros](https://img.shields.io/badge/Macros-40-red?style=for-the-badge)
