@@ -5,7 +5,7 @@ This repository documents my end-to-end ASIC Physical Design Flow project implem
 
 ##  Project Overview  
 - **Objective**: Complete **Place & Route implementation** for a synthesized design.  
-- **Design**: `ChipTop` module with 61K standard cells and 40 macros.  
+- **Design**: `ChipTop` module with 52K standard cells and 40 macros.  
 - **Target Frequency**: 434 MHz (2.3 ns clock period).  
 - **PnR Flow Steps**:  
   1. Floorplanning (**ICC2**) – die size, macro & IO port placement, Voltage area creation,power planning  
